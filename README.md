@@ -1,5 +1,5 @@
 ### Description
-This project is a clothing shop. There are two roles of users: admin and customers. Customers can choose clothes by size. This application has the ability to add, update, delete and get information about the user, product and order.
+This project is a clothing shop. There are two roles of users: admin and customers. Customers can choose clothes by size. This application has the ability to add, update, delete and get information about the user, product, cart and order.
 _____
 ### Technical requirements
 - Task will be implemented on Javascript
@@ -317,7 +317,7 @@ _____
 > }
 > ```
 
-  - POST api/v1/orders - create record about new product and put it in database. The request body should contain the required information for creating a new product, such as name, price, description and image.
+  - POST api/v1/orders - create record about new order and put it in database. The request body should contain the required information for creating a new order.
     - Server should answer with status code 201 and newly created record
     - Server should answer with status code 400 and corresponding message if request body does not contain required fields
 
@@ -343,7 +343,7 @@ _____
 > }
 > ```
 
-  - PUT api/v1/orders/{orderId} - update existing order. The request body should contain the updated information for the product.
+  - PUT api/v1/orders/{orderId} - update existing order. The request body should contain the updated information for the order.
     - Server should answer with status code 200 and updated record
     - Server should answer with status code 400 and corresponding message if orderId is invalid (not uuid)
     - Server should answer with status code 404 and corresponding message if record with id === orderId doesn't exist
@@ -378,13 +378,124 @@ _____
 > Request
 > ```
 > curl -X 'DELETE' \
-> ‘api/v1/products/1’ \
+> ‘api/v1/orders/1’ \
 > ```
 
 > Response body
 > ```
 > No Content
 > ```   
+
+- #### Endpoint api/carts:
+  - GET api/v1/carts - get all carts
+    - Server should answer with status code 200 and all carts records
+
+> Request
+> ```
+> curl -X 'GET' \
+> ‘api/v1/carts’ \
+> ```
+
+> Response body
+> ```
+> [{
+>   "id": 1,
+>   "userId": "string",
+>   "products": "string",
+> },
+> {
+>   "id": 2,
+>   "userId": "string",
+>   "products": "string",
+> }]
+> ```
+
+- GET api/v1/carts/{cartId} - get one cart
+  - Server should answer with status code 200 and record with id === cartId if it exists
+  - Server should answer with status code 400 and corresponding message if cartId is invalid (not uuid)
+  - Server should answer with status code 404 and corresponding message if record with id === cartId doesn't exist
+
+> Request
+> ```
+> curl -X 'GET' \
+> ‘api/v1/carts/1’ \
+> ```
+
+> Response body
+> ```
+> {
+>   "id": 1,
+>   "userId": "string",
+>   "products": "string",
+> }
+> ```
+
+- POST api/v1/carts - create record about new cart and put it in database. The request body should contain the required information for creating a new cart.
+  - Server should answer with status code 201 and newly created record
+  - Server should answer with status code 400 and corresponding message if request body does not contain required fields
+
+> Request
+> ```
+> curl -X 'POST' \
+> ‘api/v1/carts/1’  \
+> -d '{
+>   "id": 1,
+>   "userId": "string",
+>   "products": "string",
+> }'
+> ```
+
+> Response body
+> ```
+> {
+>   "id": 1,
+>   "userId": "string",
+>   "products": "string",
+> }
+> ```
+
+- PUT api/v1/carts/{cartsId} - update existing cart. The request body should contain the updated information for the cart.
+  - Server should answer with status code 200 and updated record
+  - Server should answer with status code 400 and corresponding message if cartId is invalid (not uuid)
+  - Server should answer with status code 404 and corresponding message if record with id === cartId doesn't exist
+
+> Request
+> ```
+> curl -X 'PUT' \
+> ‘api/v1/carts/1’  \
+> -d '{
+>   "id": 1,
+>   "userId": "string",
+>   "products": "string",
+> }'
+> ```
+
+> Response body
+> ```
+> {
+>   "id": 1,
+>   "userId": "string",
+>   "products": "string",
+> }
+> ```
+
+- DELETE api/v1/carts/{cartId} is used to delete existing cart from database
+  - Server should answer with status code 204 if the record is found and deleted
+  - Server should answer with status code 400 and corresponding message if cartId is invalid (not uuid)
+  - Server should answer with status code 404 and corresponding message if record with id === cartId doesn't exist
+
+> Request
+> ```
+> curl -X 'DELETE' \
+> ‘api/v1/carts/1’ \
+> ```
+
+> Response body
+> ```
+> No Content
+> ```   
+
+
 
 - Requests to non-existing endpoints are handled (server answer with status code 404 and message with error)
 ______
@@ -415,6 +526,11 @@ Orders are stored as objects that have the following properties:
   - userId — id of the user (string, uuid)
   - products — products that are in cart (array of strings or empty array, required)
   - date — date when order was created (date, required)
+
+Carts are stored as objects that have the following properties:
+- id — unique identifier (string, uuid) generated on server side
+- userId — id of the user (string, uuid)
+- products — products that are in cart (array of strings or empty array, required)
 ______
 
 ### Install
