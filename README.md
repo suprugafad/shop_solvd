@@ -4,6 +4,7 @@ _____
 ### Technical requirements
 - Task will be implemented on Javascript
 - Database - MongoDB
+- Docker
 _____
 ### Implementation details
 - #### Endpoint api/v1/users:
@@ -494,8 +495,6 @@ _____
 > ```
 > No Content
 > ```   
-
-
 
 - Requests to non-existing endpoints are handled (server answer with status code 404 and message with error)
 ______
