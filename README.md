@@ -6,60 +6,386 @@ _____
 - Database - MongoDB
 _____
 ### Implementation details
-- Endpoint api/v1/users:
+- #### Endpoint api/v1/users:
   - GET api/v1/users - get all users
-      - Server should answer with status code 200 and all users records
+      - Server should answer with status code 200 and all users records.
+
+> Request
+> ```
+> curl -X 'GET' \
+> ‘api/v1/users’ \
+> ```
+
+> Response body
+> ```
+> [{
+>   "id": 1,
+>   "name": "string",
+>   "password": "string",
+>   "email": "string",
+>   "isAdmin": false,
+> },
+> {
+>   "id": 2,
+>   "name": "string",
+>   "password": "string",
+>   "email": "string",
+>   "isAdmin": false,
+> }]
+> ```
   - GET api/v1/users/{userId} - get one user 
     - Server should answer with status code 200 and record with id === userId if it exists
     - Server should answer with status code 400 and corresponding message if userId is invalid (not uuid)
     - Server should answer with status code 404 and corresponding message if record with id === userId doesn't exist
+
+> Request
+> ```
+> curl -X 'GET' \
+> ‘api/v1/users/1’ \
+> ```
+
+> Response body
+> ```
+> {
+>   "id": 1,
+>   "name": "string",
+>   "password": "string",
+>   "email": "string",
+>   "isAdmin": false,
+> }
+> ```
   - POST api/v1/users - create record about new user and put it in database. The request body should contain the required information for creating a new product, such as name, price, description and image.
     - Server should answer with status code 201 and newly created record
     - Server should answer with status code 400 and corresponding message if request body does not contain required fields
+
+> Request
+> ```
+> curl -X 'POST' \
+> ‘api/v1/users/0’  \
+> -d '{
+>   "id": 0,
+>   "name": "string",
+>   "password": "string",
+>   "email": "string",
+>   "isAdmin": false,
+> }'
+> ```
+
+> Response body
+> ```
+> {
+>   "id": 0,
+>   "name": "string",
+>   "password": "string",
+>   "email": "string",
+>   "isAdmin": false,
+> }
+> ```
+
   - PUT api/v1/users/{userId} - update existing user. The request body should contain the updated information for the product.
     - Server should answer with status code 200 and updated record
     - Server should answer with status code 400 and corresponding message if userId is invalid (not uuid)
     - Server should answer with status code 404 and corresponding message if record with id === userId doesn't exist
+
+> Request
+> ```
+> curl -X 'PUT' \
+> ‘api/v1/users/3’  \
+> -d '{
+>   "id": 3,
+>   "name": "string",
+>   "password": "string",
+>   "email": "string",
+>   "isAdmin": false,
+> }'
+> ```
+
+> Response body
+> ```
+> {
+>   "id": 3,
+>   "name": "string",
+>   "password": "string",
+>   "email": "string",
+>   "isAdmin": false,
+> }
+> ```
+
   - DELETE api/v1/users/{userId} is used to delete existing user from database
     - Server should answer with status code 204 if the record is found and deleted
     - Server should answer with status code 400 and corresponding message if userId is invalid (not uuid)
     - Server should answer with status code 404 and corresponding message if record with id === userId doesn't exist
-- Endpoint api/v1/products:
+
+> Request
+> ```
+> curl -X 'DELETE' \
+> ‘api/v1/users/1’ \
+> ```
+
+> Response body
+> ```
+> No Content
+> ```
+
+- #### Endpoint api/v1/products:
   - GET api/v1/products - get all products
-- Server should answer with status code 200 and all products records
+    - Server should answer with status code 200 and all products records
+
+> Request
+> ```
+> curl -X 'GET' \
+> ‘api/v1/products’ \
+> ```
+
+> Response body
+> ```
+> [{
+>   "id": 1,
+>   "title": "string",
+>   "discription": "string",
+>   "category": "string",
+>   "brand": "string",
+>   "price": 1,
+>   "image": "string",
+>   "modelId": 1,
+> },
+> {
+>   "id": 2,
+>   "title": "string",
+>   "discription": "string",
+>   "category": "string",
+>   "brand": "string",
+>   "price": 2,
+>   "image": "string",
+>   "modelId": 2,
+> }]
+
   - GET api/v1/products/{productId} - get one product
     - Server should answer with status code 200 and record with id === productId if it exists
     - Server should answer with status code 400 and corresponding message if productId is invalid (not uuid)
     - Server should answer with status code 404 and corresponding message if record with id === productId doesn't exist
+
+> Request
+> ```
+> curl -X 'GET' \
+> ‘api/v1/products/1’ \
+> ```
+
+> Response body
+> ```
+> {
+>   "id": 1,
+>   "title": "string",
+>   "discription": "string",
+>   "category": "string",
+>   "brand": "string",
+>   "price": 1,
+>   "image": "string",
+>   "modelId": 1,
+> }
+> ```
+
   - POST api/v1/products - create record about new product and put it in database. The request body should contain the required information for creating a new product, such as name, price, description and image.
     - Server should answer with status code 201 and newly created record
     - Server should answer with status code 400 and corresponding message if request body does not contain required fields
+
+> Request
+> ```
+> curl -X 'POST' \
+> ‘api/v1/products/1’  \
+> -d '{
+>   "id": 1,
+>   "title": "string",
+>   "discription": "string",
+>   "category": "string",
+>   "brand": "string",
+>   "price": 1,
+>   "image": "string",
+>   "modelId": 1,
+> }'
+> ```
+
+> Response body
+> ```
+> {
+>   "id": 1,
+>   "title": "string",
+>   "discription": "string",
+>   "category": "string",
+>   "brand": "string",
+>   "price": 1,
+>   "image": "string",
+>   "modelId": 1,
+> }
+> ```
+
   - PUT api/v1/products/{productId} - update existing product. The request body should contain the updated information for the product.
     - Server should answer with status code 200 and updated record
     - Server should answer with status code 400 and corresponding message if productId is invalid (not uuid)
     - Server should answer with status code 404 and corresponding message if record with id === productId doesn't exist
+
+> Request
+> ```
+> curl -X 'PUT' \
+> ‘api/v1/products/3’  \
+> -d '{
+>   "id": 3,
+>   "title": "string",
+>   "discription": "string",
+>   "category": "string",
+>   "brand": "string",
+>   "price": 3,
+>   "image": "string",
+>   "modelId": 3,
+> }'
+> ```
+
+> Response body
+> ```
+> {
+>   "id": 3,
+>   "title": "string",
+>   "discription": "string",
+>   "category": "string",
+>   "brand": "string",
+>   "price": 3,
+>   "image": "string",
+>   "modelId": 3,
+> }
+> ```
+
   - DELETE api/v1/products/{productId} is used to delete existing product from database
     - Server should answer with status code 204 if the record is found and deleted
     - Server should answer with status code 400 and corresponding message if productId is invalid (not uuid)
     - Server should answer with status code 404 and corresponding message if record with id === productId doesn't exist
-- Endpoint api/orders:
+
+> Request
+> ```
+> curl -X 'DELETE' \
+> ‘api/v1/products/1’ \
+> ```
+
+> Response body
+> ```
+> No Content
+> ```    
+
+- #### Endpoint api/orders:
   - GET api/v1/orders - get all orders
     - Server should answer with status code 200 and all orders records
+
+> Request
+> ```
+> curl -X 'GET' \
+> ‘api/v1/orders’ \
+> ```
+
+> Response body
+> ```
+> [{
+>   "id": 1,
+>   "userId": "string",
+>   "products": "string",
+>   "date": "2023-02-15T00:00:00+0400",
+> },
+> {
+>   "id": 2,
+>   "userId": "string",
+>   "products": "string",
+>   "date": "2023-02-16T00:00:00+0400",
+> }]
+> ```
+
   - GET api/v1/orders/{orderId} - get one order
     - Server should answer with status code 200 and record with id === orderId if it exists
     - Server should answer with status code 400 and corresponding message if orderId is invalid (not uuid)
     - Server should answer with status code 404 and corresponding message if record with id === orderId doesn't exist
+
+> Request
+> ```
+> curl -X 'GET' \
+> ‘api/v1/orders/1’ \
+> ```
+
+> Response body
+> ```
+> {
+>   "id": 1,
+>   "userId": "string",
+>   "products": "string",
+>   "date": "2023-02-15T00:00:00+0400",
+> }
+> ```
+
   - POST api/v1/orders - create record about new product and put it in database. The request body should contain the required information for creating a new product, such as name, price, description and image.
     - Server should answer with status code 201 and newly created record
     - Server should answer with status code 400 and corresponding message if request body does not contain required fields
+
+> Request
+> ```
+> curl -X 'POST' \
+> ‘api/v1/orders/1’  \
+> -d '{
+>   "id": 1,
+>   "userId": "string",
+>   "products": "string",
+>   "date": "2023-02-15T00:00:00+0400",
+> }'
+> ```
+
+> Response body
+> ```
+> {
+>   "id": 1,
+>   "userId": "string",
+>   "products": "string",
+>   "date": "2023-02-15T00:00:00+0400",
+> }
+> ```
+
   - PUT api/v1/orders/{orderId} - update existing order. The request body should contain the updated information for the product.
     - Server should answer with status code 200 and updated record
     - Server should answer with status code 400 and corresponding message if orderId is invalid (not uuid)
     - Server should answer with status code 404 and corresponding message if record with id === orderId doesn't exist
+
+> Request
+> ```
+> curl -X 'PUT' \
+> ‘api/v1/orders/1’  \
+> -d '{
+>   "id": 1,
+>   "userId": "string",
+>   "products": "string",
+>   "date": "2023-02-15T00:00:00+0400",
+> }'
+> ```
+
+> Response body
+> ```
+> {
+>   "id": 1,
+>   "userId": "string",
+>   "products": "string",
+>   "date": "2023-02-15T00:00:00+0400",
+> }
+> ```
+
   - DELETE api/v1/orders/{orderId} is used to delete existing order from database
     - Server should answer with status code 204 if the record is found and deleted
     - Server should answer with status code 400 and corresponding message if orderId is invalid (not uuid)
     - Server should answer with status code 404 and corresponding message if record with id === orderId doesn't exist
+
+> Request
+> ```
+> curl -X 'DELETE' \
+> ‘api/v1/products/1’ \
+> ```
+
+> Response body
+> ```
+> No Content
+> ```   
+
 - Requests to non-existing endpoints are handled (server answer with status code 404 and message with error)
 ______
 Users are stored as objects that have the following properties:
@@ -72,7 +398,7 @@ Users are stored as objects that have the following properties:
 Products are stored as objects that have the following properties:
   - id — unique identifier (string, uuid) generated on server side
   - title — product's title (string, required)
-  - description — product's age (string, required)
+  - description — product's description (string, required)
   - category — product's category (string, required)
   - brand — brand of product (string, required)
   - price — price of product (number, required)
@@ -82,11 +408,11 @@ Products are stored as objects that have the following properties:
 Models are stored as objects that have the following properties:
   - id — unique identifier (string, uuid) generated on server side
   - size — model's size (string, required)
-  - count — count of items of this model
+  - count — count of items of this model (number, required)
 
 Orders are stored as objects that have the following properties:
   - id — unique identifier (string, uuid) generated on server side
-  - userId — product's name (string, required)
+  - userId — id of the user (string, uuid)
   - products — products that are in cart (array of strings or empty array, required)
   - date — date when order was created (date, required)
 ______
