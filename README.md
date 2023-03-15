@@ -1,9 +1,10 @@
 ### Description
-This project is a clothing shop. There are two roles of users: admin and customers. Customers can choose clothes by size. This application has the ability to add, update, delete and get information about the user, product and order.
+This project is a clothing shop. There are two roles of users: admin and customers. This application has the ability to add, update, delete and get information about the user, product and order.
 _____
 ### Technical requirements
 - Task will be implemented on Javascript
 - Database - MongoDB
+- Docker
 _____
 ### Implementation details
 - #### Endpoint api/v1/users:
